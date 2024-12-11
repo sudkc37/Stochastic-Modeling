@@ -1,1 +1,4 @@
-# Stochastic-Modeling
+##  Modeling Revenue Projection Via Queuing Process
+
+
+
