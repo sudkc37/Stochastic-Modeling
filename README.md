@@ -14,3 +14,22 @@
 </p>
 
 <h3>1. Introduction</h3>
+<h3>1.1 Motivation and Problem Context</h3>
+<p>
+Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection (Goodfellow et al., 2016). However, these data-driven approaches face fundamental limitations in scenarios characterized by limited foundational knowledge and insufficient training data. In such contexts, analytical models grounded in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
+ 
+We consider the operational challenge faced by a family-owned lawn care business during peak season. The business owner must determine optimal workforce allocation to maximize revenue while minimizing losses from rejected contracts. This problem is compounded by the stochastic nature of customer demand, where contract arrivals are random and service times uncertain. Unlike large-scale operations with extensive historical data suitable for machine learning, small businesses typically lack the data volume necessary for reliable model training and validation. This paper addresses three fundamental questions:
+
+**1. Performance Prediction:** What are the expected revenue, lost revenue, and system utilization given specific arrival and service rates?
+
+**2. Capacity Planning:** How many contracts exceed acceptable completion times, and what does this imply for workforce sizing?
+
+**3. Revenue Optimization:** What is the optimal service capacity that maximizes net revenue while accounting for operational costs?
+</p>
+
+<h3>1.3 Modeling Approach</h3>
+<p>
+We model the business as an M/M/1/1 queuing system—a single-server system with no waiting queue where arriving customers finding the server busy are immediately rejected. This "loss system" captures the operational reality of small service businesses unable to maintain contract backlogs. Contracts arrive according to a Poisson process and require exponentially distributed service times, assumptions justified by the memoryless nature of random customer behavior and job complexity uncertainty.
+</p>
+
+
