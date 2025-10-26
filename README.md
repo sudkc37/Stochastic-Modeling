@@ -14,7 +14,7 @@
 </p>
 
 <h3>1. Introduction</h3>
-<h3>1.1 Motivation and Problem Context</h3>
+<h4>1.1 Motivation and Problem Context</h4>
 <p>
 Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection (Goodfellow et al., 2016). However, these data-driven approaches face fundamental limitations in scenarios characterized by limited foundational knowledge and insufficient training data. In such contexts, analytical models grounded in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
  
@@ -27,8 +27,9 @@ We consider the operational challenge faced by a family-owned lawn care business
 <b>3. Revenue Optimization:</b> What is the optimal service capacity that maximizes net revenue while accounting for operational costs?
 </div>
 
-<h2>1.3 Modeling Approach</h2>
-<p>
+
+<h4 style="margin-bottom: 0;">1.3 Modeling Approach</h4>
+<p style="margin-top: 0;">
 We model the business as an M/M/1/1 queuing system—a single-server system with no waiting queue where arriving customers finding the server busy are immediately rejected. This "loss system" captures the operational reality of small service businesses unable to maintain contract backlogs. Contracts arrive according to a Poisson process and require exponentially distributed service times, assumptions justified by the memoryless nature of random customer behavior and job complexity uncertainty.
 </p>
 
