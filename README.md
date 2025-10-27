@@ -399,7 +399,8 @@ If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
     
    <p>For computational efficiency, sensitivity runs use <span class="math">T<sub>max</sub></span> = 5000 and 20 replications per parameter value. This reduced configuration maintains adequate precision (standard errors &lt; 2% of mean) while enabling comprehensive parameter space exploration.</p>
     
-   <h4>Validation Metrics</h4>
+
+   <h4>5.2 Validation Metrics:</h4>
     
    <p>We validate the model by comparing simulated results against theoretical predictions for the following performance metrics:</p>
     
@@ -463,3 +464,5 @@ If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
     
 </body>
 </html>
+
+<h3>6. Results</h3>
