@@ -37,7 +37,7 @@ We model the business as an M/M/1/1 queuing system, a single server system with 
 </p>
 
 <h3>2. Model Formulation</h3>
-We model the lawn care business as an **M/M/1/1 queuing system**, representing a single-crew operation with no waiting capacity. In this framework, potential service contracts arrive following a **Poisson process** N(t) with an arrival rate <i>λ &gt; 0</i>. The **service times** are assumed to be **independent and identically distributed exponential random variables** with rate <i>μ &gt; 0</i>. Since the system can accommodate only one job at a time (<i>K = 0</i>), any new contract that arrives while the server is busy is **immediately rejected**, reflecting a lost-customer scenario.
+We model the lawn care business as an M/M/1/1 queuing system, representing a single-crew operation with no waiting capacity. In this framework, potential service contracts arrive following a Poisson process N(t) with an arrival rate <i>λ &gt; 0</i>. The service times are assumed to be independent and identically distributed exponential random variables with rate <i>μ &gt; 0</i>. Since the system can accommodate only one job at a time (<i>K = 0</i>), any new contract that arrives while the server is busy is immediately rejected, reflecting a lost-customer scenario.
 
 **Notation:**
 - <i>λ</i>: Arrival rate (contracts per time unit)  
