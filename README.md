@@ -201,11 +201,12 @@ $$
 \frac{\partial \bar{Z}}{\partial \mu} = \frac{\theta \lambda^2}{(\lambda + \mu)^2} - c'(\mu) = 0
 $$
 
-This yields the **first-order optimality condition**:
+This yields the first-order optimality condition $\mathrm{c}'(\mu^*)$:
 
 $$
-c'(\mu^{*}) = \frac{\theta \lambda^2}{(\lambda + \mu^{*})^2}
+\frac{\theta \lambda^2}{(\lambda + \mu^*)^2}
 $$
+
 
 **Economic Interpretation:**  
 At the optimum, the marginal cost of increasing service capacity equals the marginal revenue benefit from reduced utilization and fewer rejections. The denominator $(\lambda + \mu)^2$ reflects diminishing returns — as $\mu$ increases, additional capacity improvements yield progressively smaller reductions in rejection rate.
@@ -220,6 +221,7 @@ If $c''(\mu) \geq 0$ (convex cost function), then $\frac{\partial^2 \bar{Z}}{\pa
 
 <h3>4. Contract Duration Analysis</h3>
 <h4>4.1 Service Time Distribution</h4>
+
 Service times $\xi_i$ are exponentially distributed with rate $\mu$:
 
 $$
@@ -236,7 +238,7 @@ This property is realistic for service operations where the remaining work is in
 
 
 <h4>4.2 Long Contract Rate</h4>
-Define a **"long" contract** as one exceeding threshold duration $D$. The probability that a randomly selected completed contract is long is:
+Define a long" contract as one exceeding threshold duration $D$. The probability that a randomly selected completed contract is long is:
 
 $$
 p_{\text{long}} = \mathbb{P}(\xi > D) = e^{-\mu D}
@@ -269,4 +271,195 @@ If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
 - Set customer expectations appropriately during booking  
 - Implement priority scheduling for time-sensitive contracts
 
+<h3>5. Simulation Methodology</h3>
+<h4>5.1 Key Implementation Details:</h4>
 
+- **Random Number Generation:** Exponential random variables generated via inverse transform:  
+
+  $X = -\frac{\ln(U)}{\lambda}, \quad U \sim \text{Uniform}(0,1)$
+
+- **Revenue Variability:** To simulate realistic heterogeneity in contract values, we introduce ±20% uniform variability around the means $\theta$ and $\eta$.
+
+- **Event Ordering:** Events are processed in strict chronological order to maintain causality.
+
+- **Trajectory Recording:** For the first simulation run, the system state is recorded at regular intervals for convergence analysis.
+
+<h4>5.1 Experimental Design / Parameter Configuration:</h4>
+    
+<div class="table-container">
+       
+   <table>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Symbol</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Arrival rate</td>
+                    <td class="math">λ</td>
+                    <td>2.0</td>
+                    <td>contracts/time</td>
+                </tr>
+                <tr>
+                    <td>Service rate</td>
+                    <td class="math">μ</td>
+                    <td>3.0</td>
+                    <td>contracts/time</td>
+                </tr>
+                <tr>
+                    <td>Traffic intensity</td>
+                    <td class="math">ρ</td>
+                    <td>0.667</td>
+                    <td>dimensionless</td>
+                </tr>
+                <tr>
+                    <td>Mean revenue</td>
+                    <td class="math">θ</td>
+                    <td>1000</td>
+                    <td>$/contract</td>
+                </tr>
+                <tr>
+                    <td>Mean lost revenue</td>
+                    <td class="math">η</td>
+                    <td>800</td>
+                    <td>$/contract</td>
+                </tr>
+                <tr>
+                    <td>Cost rate</td>
+                    <td class="math">c</td>
+                    <td>100</td>
+                    <td>$/time</td>
+                </tr>
+                <tr>
+                    <td>Simulation horizon</td>
+                    <td class="math">T<sub>max</sub></td>
+                    <td>10,000</td>
+                    <td>time units</td>
+                </tr>
+                <tr>
+                    <td>Days threshold</td>
+                    <td class="math">D</td>
+                    <td>1.0</td>
+                    <td>days</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+ <h4>Replication Strategy</h4>
+    
+<p>To ensure statistical reliability and quantify estimation uncertainty, we employ the following replication strategy:</p>
+    
+<ul>
+        <li><span class="emphasis">Number of runs:</span> 100 independent replications</li>
+        <li><span class="emphasis">Independence:</span> Each run uses independent random number streams with different seeds</li>
+        <li><span class="emphasis">Burn-in period:</span> Results recorded after initial transient (first 1000 time units discarded in trajectory analysis)</li>
+        <li><span class="emphasis">Statistical analysis:</span> Mean, standard deviation, and 95% confidence intervals computed across replications using the Central Limit Theorem</li>
+    </ul>
+    
+ <h4>Rationale for Parameter Selection</h4>
+    
+<p>The parameter choices reflect realistic operating conditions and ensure system stability:</p>
+    
+   <ul>
+        <li><span class="math">ρ</span> = 0.667 &lt; 1: System not overloaded; steady state exists and is stable</li>
+        <li><span class="math">T<sub>max</sub></span> = 10,000: Long horizon ensures convergence to steady state and reduces transient effects to negligible levels</li>
+        <li>100 runs: Sample size sufficient for detecting errors ≥1% with statistical power &gt; 0.95 at significance level <span class="math">α</span> = 0.05</li>
+        <li><span class="math">η/θ</span> = 0.8: Lost revenue approximately 80% of completed revenue, reflecting opportunity cost and customer dissatisfaction</li>
+    </ul>
+    
+   <div class="note">
+        <strong>Note:</strong> The traffic intensity <span class="math">ρ</span> = 0.667 places the system in a moderate utilization regime where queuing effects are significant but not extreme, making it ideal for demonstrating model behavior across the full range of system dynamics.
+    </div>
+    
+   <h4>Sensitivity Analysis Design</h4>
+    
+   <p>To examine robustness and identify optimal operating regimes, we conduct two-dimensional sensitivity analysis by systematically varying arrival and service rates:</p>
+    
+   <ol>
+        <li>
+            <span class="emphasis">Arrival rate <span class="math">λ</span>:</span> Range [0.5, 4.5] with 15 equally spaced values, holding <span class="math">μ</span> = 3.0 fixed
+            <ul>
+                <li>Covers traffic intensities from <span class="math">ρ</span> = 0.17 (underutilized) to <span class="math">ρ</span> = 1.5 (heavily overloaded)</li>
+                <li>Reveals the non-monotonic relationship between demand and profitability</li>
+            </ul>
+        </li>
+        <li>
+            <span class="emphasis">Service rate <span class="math">μ</span>:</span> Range [1.5, 5.5] with 15 equally spaced values, holding <span class="math">λ</span> = 2.0 fixed
+            <ul>
+                <li>Spans capacity from inadequate (<span class="math">μ</span> &lt; <span class="math">λ</span>) to generous (<span class="math">μ</span> &gt; 2<span class="math">λ</span>)</li>
+                <li>Identifies optimal capacity investment levels</li>
+            </ul>
+        </li>
+    </ol>
+    
+   <p>For computational efficiency, sensitivity runs use <span class="math">T<sub>max</sub></span> = 5000 and 20 replications per parameter value. This reduced configuration maintains adequate precision (standard errors &lt; 2% of mean) while enabling comprehensive parameter space exploration.</p>
+    
+   <h4>Validation Metrics</h4>
+    
+   <p>We validate the model by comparing simulated results against theoretical predictions for the following performance metrics:</p>
+    
+   <div class="table-container">
+        <p class="caption">Table 3: Validation Metrics</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Theoretical Formula</th>
+                    <th>Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Utilization</td>
+                    <td class="math">P<sub>1</sub> = λ/(λ+μ)</td>
+                    <td>Long-run fraction of time busy</td>
+                </tr>
+                <tr>
+                    <td>Completion rate</td>
+                    <td class="math">λμ/(λ+μ)</td>
+                    <td>Contracts completed per time unit</td>
+                </tr>
+                <tr>
+                    <td>Rejection rate</td>
+                    <td class="math">λ<sup>2</sup>/(λ+μ)</td>
+                    <td>Contracts rejected per time unit</td>
+                </tr>
+                <tr>
+                    <td>Revenue rate</td>
+                    <td class="math">θλμ/(λ+μ)</td>
+                    <td>Revenue earned per time unit</td>
+                </tr>
+                <tr>
+                    <td>Loss rate</td>
+                    <td class="math">ηλ<sup>2</sup>/(λ+μ)</td>
+                    <td>Revenue lost per time unit</td>
+                </tr>
+                <tr>
+                    <td>Net revenue rate</td>
+                    <td class="math">[θλμ - ηλ<sup>2</sup>]/(λ+μ) - c</td>
+                    <td>Profit per time unit</td>
+                </tr>
+                <tr>
+                    <td>Long contracts rate</td>
+                    <td class="math">[λμ/(λ+μ)]e<sup>-μD</sup></td>
+                    <td>Contracts exceeding D days per time</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+   <p>For each metric, we compute the percentage error as:</p>
+    
+   <p style="text-align: center; margin: 20px 0;">
+        <span class="math">Error = |Theoretical - Simulated Mean| / |Theoretical| × 100%</span>
+    </p>
+    
+   <p>Model validation is deemed successful if all metrics exhibit errors below 5%, with typical errors expected below 1% given the large sample size and long simulation horizon.</p>
+    
+</body>
+</html>
