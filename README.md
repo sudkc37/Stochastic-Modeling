@@ -2,6 +2,9 @@
   <h2>Optimal Capacity Planning in Service Operations</h2>
   <p><i>An M/M/1/1 Framework for Small Business Revenue Optimization</i></p>
   <p><i>Sudip Khadka</i></p>
+  <p><i>Applied Stochastic Processes</i></p>
+   <p><i>University of Maryland, College Park</i></p>
+  
 </div>
 
 <hr>
