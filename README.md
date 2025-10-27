@@ -33,4 +33,129 @@ We consider the operational challenge faced by a family-owned lawn care business
 We model the business as an M/M/1/1 queuing system, a single server system with no waiting queue where arriving customers finding the server busy are immediately rejected. This "loss system" captures the operational reality of small service businesses unable to maintain contract backlogs. Contracts arrive according to a Poisson process and require exponentially distributed service times, assumptions justified by the memoryless nature of random customer behavior and job complexity uncertainty. We apply continuous-time Markov chain theory and renewal processes to accurately derive revenue metrics that address and correct errors present in the preliminary analysis. Through a comprehensive validation process using event-driven Monte Carlo simulations with 100 replications our model demonstrates high accuracy, achieving less than 1% error across all performance metrics. Furthermore, we conduct sensitivity analyses to identify optimal operating regimes and critical thresholds for arrival and service rates. Finally, our work provides a quantitative decision support framework that guides workforce planning, pricing strategy, and capacity investment decisions.
 </p>
 
+<h3>2. Model Formulation</h3>
+We model the lawn care business as an **M/M/1/1 queuing system**, representing a single-crew operation with no waiting capacity. In this framework, potential service contracts arrive following a **Poisson process** N(t) with an arrival rate <i>λ &gt; 0</i>. The **service times** are assumed to be **independent and identically distributed exponential random variables** with rate <i>μ &gt; 0</i>. Since the system can accommodate only one job at a time (<i>K = 0</i>), any new contract that arrives while the server is busy is **immediately rejected**, reflecting a lost-customer scenario.
+
+**Notation:**
+- <i>λ</i>: Arrival rate (contracts per time unit)  
+- <i>μ</i>: Service rate (contracts per time unit)  
+- <i>ρ = λ / μ</i>: Traffic intensity  
+- <i>θ</i>: Mean revenue per completed contract  
+- <i>η</i>: Mean lost revenue per rejected contract  
+- <i>c(μ)</i>: Cost rate as a function of service capacity  
+- <i>D</i>: Threshold duration for “long” contracts  
+
+-----
+### Preliminaries we will use moving forward: 
+
+**Preliminaries 1:**
+The arrival process $N(t)$ is assumed to be a Poisson process with rate $\lambda$, characterized by *stationary independent increments* (Ross, 2014). Specifically, for any sequence of times $0 \leq t_1 < t_2 < \cdots < t_n$, the increments
+
+$$
+N(t_2) - N(t_1), \; N(t_3) - N(t_2), \; \ldots, \; N(t_n) - N(t_{n-1})
+$$
+
+are independent random variables. Moreover, the distribution of each increment $N(t+s) - N(s)$ depends only on the length of the interval $t$, and not on the starting point $s$.
+
+**Preliminaries 2:** Let $X(t)$ denote the system state at time $t$:
+
+$$
+X(t) = \begin{cases}
+1, & \text{if server busy (in service)} \\
+0, & \text{if server idle}
+\end{cases}
+$$
+
+The stochastic process $\{X(t) : t \geq 0\}$ forms a continuous-time Markov chain (CTMC) on the state space $S = \{0, 1\}$. A Markov process on a countable set $S$ is a CTMC if its sample paths are right-continuous and piecewise constant with finite jump times (Serfozo, 2009). Formally, 
+
+$$
+X(t) = X_n \quad \text{if} \quad t \in [T_n, T_{n+1}) \text{ for some } n,
+$$
+
+where $T_n$ denotes the $n$-th transition time.  
+
+ ** Transition Rate Matrix **
+
+The infinitesimal generator $Q$ of this CTMC is:
+
+$$
+Q = \begin{pmatrix}
+-\lambda & \lambda \\
+\mu & -\mu
+\end{pmatrix}
+$$
+
+with transition rates:
+
+- $q_{01} = \lambda$ (idle $\rightarrow$ busy when a contract arrives)  
+- $q_{10} = \mu$ (busy $\rightarrow$ idle when a contract completes)
+
+**Preliminaries 3:** Under the ergodicity condition ($\lambda, \mu > 0$), the CTMC possesses a unique stationary distribution $\pi = (\pi_0, \pi_1)$ satisfying the global balance equations:
+
+$$
+\pi Q = 0, \quad \sum_{i \in S} \pi_i = 1
+$$
+
+Solving these equations yields:
+
+$$
+\mathbb{P}_0 = \pi_0 = \frac{\mu}{\lambda + \mu}
+$$
+
+$$
+\mathbb{P}_1 = \pi_1 = \frac{\lambda}{\lambda + \mu}
+$$
+
+**Interpretation:**  
+
+- $\mathbb{P}_1$ represents the long-run proportion of time the system is busy (utilization).  
+- $\mathbb{P}_0$ represents the long-run proportion of time the system is idle. The traffic intensity $\rho = \frac{\lambda}{\mu}$ relates to utilization as:
+
+$$
+\mathbb{P}_1 = \frac{\rho}{1 + \rho}.
+$$
+
+---
+
+<h3>3. Revenue Analysis</h3>
+<h4>3.1 Completed Contracts: Renewal Reward Theory</h4>
+
+Let $\{T_i : i \geq 1\}$ denote the sequence of contract completion times, and define the counting process:
+
+$$
+N(t) = \sum_{i=1}^{\infty} \mathbb{1}(T_i \leq t), \quad t \geq 0
+$$
+
+where $N(t)$ counts the number of contracts completed by time $t$. This forms a renewal process with inter-renewal times having a distribution determined by the alternating idle/busy periods.  
+
+Let $Y_i$ denote the revenue from the $i$-th completed contract, assumed to be i.i.d. random variables with mean $\mathbb{E}[Y_i] = \theta$, independent of the process $\{X(t)\}$. The cumulative revenue from completed contracts is:
+
+$$
+Z(t) = \sum_{i=1}^{N(t)} Y_i, \quad t \geq 0
+$$
+
+This is a compound renewal process. By the renewal reward theorem (Ross, 2014):
+
+$$
+\lim_{t \to \infty} \frac{Z(t)}{t} = \frac{\mathbb{E}[Y_1]}{\mathbb{E}[\text{cycle length}]} \quad \text{a.s.}
+$$
+
+**Derivation of Completion Rate:**
+
+The system alternates between idle and busy periods. In steady state:
+
+- Proportion of time busy: $P_1 = \frac{\lambda}{\lambda + \mu}$  
+- When busy, service completions occur at rate: $\mu$  
+
+Thus, the effective completion rate is:
+
+$$
+\frac{\lambda \mu}{\lambda + \mu}
+$$
+
+Therefore, the average revenue rate from completed contracts is:
+
+$$
+\bar{R}_{\text{complete}} = \theta \cdot \frac{\lambda \mu}{\lambda + \mu}
+$$
 
