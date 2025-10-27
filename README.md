@@ -470,4 +470,4 @@ If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
 
 <h3>6. Results</h3>
 
-<img src="https://github.com/user-attachments/assets/f17aaa86-e154-43d7-acc5-66522ac4a71c" alt="Screenshot 2024-12-09 at 2 17 15 PM" width="950" height="400">
+<img src="https://github.com/sudkc37/Stochastic-Modeling/blob/master/Results/Distributions.png" alt="Screenshot 2024-12-09 at 2 17 15 PM" width="950" height="400">
