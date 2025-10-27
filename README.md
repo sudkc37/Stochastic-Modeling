@@ -159,3 +159,114 @@ $$
 \bar{R}_{\text{complete}} = \theta \cdot \frac{\lambda \mu}{\lambda + \mu}
 $$
 
+
+<h4>3.3 Net Revenue Formulation</h4>
+
+Let $c(\mu)$ denote the cost per unit time of maintaining service rate $\mu$. This cost function typically includes:
+
+- Labor costs (wages for workers/crew)  
+- Equipment depreciation and maintenance  
+- Overhead allocated to service capacity  
+
+The **net average revenue rate** is:
+
+$$
+\bar{Z}(\lambda, \mu) = \bar{R}_{\text{complete}} - \bar{R}_{\text{loss}} - c(\mu)
+$$
+
+Substituting the expressions from Sections 3.1 and 3.2:
+
+$$
+\bar{Z}(\lambda, \mu) = \frac{\theta \lambda \mu}{\lambda + \mu} - \frac{\eta \lambda^2}{\lambda + \mu} - c(\mu)
+$$
+
+Factoring the first two terms:
+
+$$
+\bar{Z}(\lambda, \mu) = \frac{\lambda (\theta \mu - \eta \lambda)}{\lambda + \mu} - c(\mu)
+$$
+
+
+<h4>3.4 Optimization Problem</h4>
+
+**Objective:** Determine the optimal service rate $\mu^*$ that maximizes net revenue:
+
+$$
+\mu^* = \arg \max_{\mu > 0} \bar{Z}(\lambda, \mu)
+$$
+
+Taking the derivative with respect to $\mu$ and setting it equal to zero:
+
+$$
+\frac{\partial \bar{Z}}{\partial \mu} = \frac{\theta \lambda^2}{(\lambda + \mu)^2} - c'(\mu) = 0
+$$
+
+This yields the **first-order optimality condition**:
+
+$$
+c'(\mu^{*}) = \frac{\theta \lambda^2}{(\lambda + \mu^{*})^2}
+$$
+
+**Economic Interpretation:**  
+At the optimum, the marginal cost of increasing service capacity equals the marginal revenue benefit from reduced utilization and fewer rejections. The denominator $(\lambda + \mu)^2$ reflects diminishing returns — as $\mu$ increases, additional capacity improvements yield progressively smaller reductions in rejection rate.
+
+**Second-Order Condition:** To verify this is a maximum:
+
+$$
+\frac{\partial^2 \bar{Z}}{\partial \mu^2} = -\frac{2 \theta \lambda^2}{(\lambda + \mu)^3} - c''(\mu)
+$$
+
+If $c''(\mu) \geq 0$ (convex cost function), then $\frac{\partial^2 \bar{Z}}{\partial \mu^2} < 0$, confirming a local maximum.
+
+<h3>4. Contract Duration Analysis</h3>
+<h4>4.1 Service Time Distribution</h4>
+Service times $\xi_i$ are exponentially distributed with rate $\mu$:
+
+$$
+\mathbb{P}(\xi_i > t) = e^{-\mu t}, \quad t \geq 0
+$$
+
+The exponential distribution is characterized by the **memoryless property**:
+
+$$
+\mathbb{P}(\xi > s+t \mid \xi > s) = \mathbb{P}(\xi > t)
+$$
+
+This property is realistic for service operations where the remaining work is independent of elapsed time — job complexity and unforeseen complications make future completion time unpredictable regardless of progress.
+
+
+<h4>4.2 Long Contract Rate</h4>
+Define a **"long" contract** as one exceeding threshold duration $D$. The probability that a randomly selected completed contract is long is:
+
+$$
+p_{\text{long}} = \mathbb{P}(\xi > D) = e^{-\mu D}
+$$
+
+Since contracts are completed at rate $\frac{\lambda \mu}{\lambda + \mu}$ and each is independently long with probability $e^{-\mu D}$, the rate of long contracts is:
+
+$$
+\bar{N}_{\text{long}} = \frac{\lambda \mu}{\lambda + \mu} \cdot e^{-\mu D}
+$$
+
+Equivalently, using the stationary distribution:
+
+$$
+\bar{N}_{\text{long}} = \mathbb{P}_1 \mu e^{-\mu D}
+$$
+
+<h4>4.3 Operational Implications</h4>
+The proportion of completed contracts that are long is:
+
+$$
+\frac{\bar{N}_{\text{long}}}{\text{completion rate}} = \frac{\mu e^{-\mu D}}{\mu} = e^{-\mu D}
+$$
+
+**Decision Rule:**  
+If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
+
+- Increase service rate $\mu$ through additional staffing  
+- Improve operational efficiency via training or equipment  
+- Set customer expectations appropriately during booking  
+- Implement priority scheduling for time-sensitive contracts
+
+
