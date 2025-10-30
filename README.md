@@ -13,15 +13,15 @@
   <h3>Abstract</h3>
 </div>
 <p>
-  This research develops and validates an analytical framework for revenue optimization in capacity constrained service businesses using M/M/1/1 queuing theory. I modeled a small lawn care business facing stochastic customer demand where limited service capacity necessitates rejection of arriving contracts when busy. Using continuous-time Markov chain analysis and renewal theory, we derive closed-form expressions for expected revenue, lost revenue from rejections, and optimal service rates. I use Monte Carlo simulations with 100 independent replications to validate the theoretical model with errors below 1% across all performance metrics. Sensitivity analysis reveals an inverted U-shaped relationship between arrival rate and net revenue which identifies optimal operating regimes. For the base case (λ=2.0, μ=3.0), the model predicts 40% system utilization and $460/time net revenue, with 40% of arriving contracts rejected. The framework provides actionable decision support for workforce planning, capacity investment, and pricing strategy in data-scarce environments where machine learning approaches are infeasible.
+  This research develops and validates an analytical framework for revenue optimization in capacity constrained service businesses using M/M/1/1 queuing theory. I modeled a small lawn care business facing stochastic customer demand where limited service capacity necessitates rejection of arriving contracts when busy. Using continuous-time Markov chain analysis and renewal theory, I derive closed-form expressions for expected revenue, lost revenue from rejections, and optimal service rates. I use Monte Carlo simulations with 100 independent replications to validate the theoretical model with errors below 1% across all performance metrics. Sensitivity analysis reveals an inverted U-shaped relationship between arrival rate and net revenue which identifies optimal operating regimes. For the base case (λ=2.0, μ=3.0), the model predicts 40% system utilization and $460/time net revenue, with 40% of arriving contracts rejected. The framework provides actionable decision support for workforce planning, capacity investment, and pricing strategy in data-scarce environments where machine learning approaches are infeasible.
 </p>
 
 <h3>1. Introduction</h3>
 <h4>1.1 Motivation and Problem Context</h4>
 <p>
-Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection (Goodfellow et al., 2016). However, these data-driven approaches face fundamental limitations in scenarios characterized by limited foundational knowledge and insufficient training data. In such contexts, analytical models grounded in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
+Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection. However, these data-driven approaches face fundamental limitations in scenarios characterized by limited foundational knowledge and insufficient training data. In such contexts, analytical models in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
  
-We consider the operational challenge faced by a family-owned lawn care business during peak season. The business owner must determine optimal workforce allocation to maximize revenue while minimizing losses from rejected contracts. This problem is compounded by the stochastic nature of customer demand, where contract arrivals are random and service times uncertain. Unlike large-scale operations with extensive historical data suitable for machine learning, small businesses typically lack the data volume necessary for reliable model training and validation. This paper addresses three fundamental questions:
+To operationalize the theory to the practical application, I consided the operational challenge faced by a family owned lawn care business during peak season. The business owner must determine optimal workforce allocation to maximize revenue while minimizing losses from rejected contracts. This problem is compounded by the stochastic nature of customer demand, where contract arrivals are random and service times uncertain. Unlike large-scale operations with extensive historical data suitable for machine learning, small businesses typically lack the data volume necessary for reliable model training and validation. This paper addresses three fundamental questions:
 </p>
 
 <div>
@@ -33,11 +33,11 @@ We consider the operational challenge faced by a family-owned lawn care business
 
 <h4 style="margin-bottom: 0;">1.3 Modeling Approach</h4>
 <p style="margin-top: 0;">
-We model the business as an M/M/1/1 queuing system, a single server system with no waiting queue where arriving customers finding the server busy are immediately rejected. This "loss system" captures the operational reality of small service businesses unable to maintain contract backlogs. Contracts arrive according to a Poisson process and require exponentially distributed service times, assumptions justified by the memoryless nature of random customer behavior and job complexity uncertainty. We apply continuous-time Markov chain theory and renewal processes to accurately derive revenue metrics that address and correct errors present in the preliminary analysis. Through a comprehensive validation process using event-driven Monte Carlo simulations with 100 replications our model demonstrates high accuracy, achieving less than 1% error across all performance metrics. Furthermore, we conduct sensitivity analyses to identify optimal operating regimes and critical thresholds for arrival and service rates. Finally, our work provides a quantitative decision support framework that guides workforce planning, pricing strategy, and capacity investment decisions.
+I modeled the business as an M/M/1/1 queuing system, a single server system with no waiting queue where arriving customers finding the server busy are immediately rejected. This "loss system" captures the operational reality of small service businesses unable to maintain contract backlogs. Contracts arrive according to a Poisson process and require exponentially distributed service times, assumptions justified by the memoryless nature of random customer behavior and job complexity uncertainty. I apply continuous-time Markov chain theory and renewal processes to accurately derive revenue metrics that address and correct errors present in the preliminary analysis. Through a comprehensive validation process using event-driven Monte Carlo simulations with 100 replications our model demonstrates high accuracy, achieving less than 1% error across all performance metrics. Furthermore, we conduct sensitivity analyses to identify optimal operating regimes and critical thresholds for arrival and service rates. Finally, our work provides a quantitative decision support framework that guides workforce planning, pricing strategy, and capacity investment decisions.
 </p>
 
 <h3>2. Model Formulation</h3>
-We model the lawn care business as an M/M/1/1 queuing system, representing a single-crew operation with no waiting capacity. In this framework, potential service contracts arrive following a Poisson process N(t) with an arrival rate <i>λ &gt; 0</i>. The service times are assumed to be independent and identically distributed exponential random variables with rate <i>μ &gt; 0</i>. Since the system can accommodate only one job at a time (<i>K = 0</i>), any new contract that arrives while the server is busy is immediately rejected, reflecting a lost-customer scenario.
+I modeled the lawn care business as an M/M/1/1 queuing system that represents a single-crew operation with no waiting capacity. In this framework, potential service contracts arrive following a Poisson process N(t) with an arrival rate <i>λ &gt; 0</i>. The service times are assumed to be independent and identically distributed exponential random variables with rate <i>μ &gt; 0</i>. Since the system can accommodate only one job at a time (<i>K = 0</i>), any new contract that arrives while the server is busy is immediately rejected, reflecting a lost-customer scenario.
 
 **Notation:**
 - <i>λ</i>: Arrival rate (contracts per time unit)  
@@ -52,7 +52,7 @@ We model the lawn care business as an M/M/1/1 queuing system, representing a sin
 ### Preliminaries we will use moving forward: 
 
 **Preliminaries 1:**
-The arrival process $N(t)$ is assumed to be a Poisson process with rate $\lambda$, characterized by *stationary independent increments* (Ross, 2014). Specifically, for any sequence of times $0 \leq t_1 < t_2 < \cdots < t_n$, the increments
+The arrival process $N(t)$ is assumed to be a Poisson process with rate $\lambda$, characterized by *stationary independent increments*. Specifically, for any sequence of times $0 \leq t_1 < t_2 < \cdots < t_n$, the increments
 
 $$
 N(t_2) - N(t_1), \; N(t_3) - N(t_2), \; \ldots, \; N(t_n) - N(t_{n-1})
@@ -475,3 +475,5 @@ If $e^{-\mu D}$ exceeds an acceptable threshold (e.g., 30%), management should:
 <img src="https://github.com/sudkc37/Stochastic-Modeling/blob/master/Results/sensitivity-analysis.png" alt="Screenshot 2024-12-09 at 2 17 15 PM" width="1000" height="700">
 
 
+<h3>1. Reference </h3>
+Serfozo, Richard. Basics of Applied Stochastic Processes. Springer Berlin Heidelberg, 2009.
