@@ -137,7 +137,7 @@ $$
 Z(t) = \sum_{i=1}^{N(t)} Y_i, \quad t \geq 0
 $$
 
-This is a compound renewal process. By the renewal reward theorem (Ross, 2014):
+This is a compound renewal process. By the renewal reward theorem:
 
 $$
 \lim_{t \to \infty} \frac{Z(t)}{t} = \frac{\mathbb{E}[Y_1]}{\mathbb{E}[\text{cycle length}]} \quad \text{a.s.}
