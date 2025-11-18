@@ -19,7 +19,7 @@
 <h3>1. Introduction</h3>
 <h4>1.1 Motivation and Problem Context</h4>
 <p>
-Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection. However, these data-driven approaches face fundamental limitations in scenarios characterized by limited foundational knowledge and insufficient training data. In such contexts, analytical models in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
+Machine learning models have achieved remarkable success across diverse applications, from robotics to weather forecasting and fraud detection. However, these data-driven approaches face fundamental limitations in scenarios such as limited foundational knowledge and insufficient training data. In such contexts, analytical models in stochastic process theory offer a powerful alternative for understanding and optimizing complex systems.
  
 To operationalize the theory to the practical application, I consided the operational challenge faced by a family owned lawn care business during peak season. The business owner must determine optimal workforce allocation to maximize revenue while minimizing losses from rejected contracts. This problem is compounded by the stochastic nature of customer demand, where contract arrivals are random and service times uncertain. Unlike large-scale operations with extensive historical data suitable for machine learning, small businesses typically lack the data volume necessary for reliable model training and validation. This paper addresses three fundamental questions:
 </p>
